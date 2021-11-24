@@ -1,7 +1,20 @@
-# nestjs 工程创建工具
+# 工程创建工具
 - 基于现在的模板工程，做相应的替换，达到创建nestjs的目的，减少重复的工程创建工作
 ## 需求说明
 - 一句话需求：将指定目录下的模板文件，按照要求 替换成目标，并存放到指定的目录
+## 工具参数说明
+```bash
+Usage: [options] <project_name>
+Arguments:
+  project_name                   指创建一个指定project目录下指定工程配置的项目名称
+Options:
+  -v, --version                  显示当前版本号
+  -n, --name <name>              项目名称
+  -a, --author <author>          作者
+  -d, --dest <destDir>           目标目录
+  -t, --template <templateName>  指定使用的模板
+  -h, --help                     display help for command
+```
 ### 模板说明
 - 每个模板目录，都有一个template.json文件，用于描述模板的目录列表与文件列表
 - 文件列表或目录列表，都是相对模板目录对应的路径

@@ -37,6 +37,15 @@ class XProjectConfig {
         }
     }
 
+    toJSON() {
+        return {
+            projectConfigName: this.projectConfigName,
+            templateName: this.templateName,
+            destName: this.destName,
+            cfg: this.cfg
+        }
+    }
+
     _init() {
         let cfg = this._loadConfig();
         log.info(JSON.stringify(cfg, null, 2));
@@ -53,8 +62,16 @@ class XProjectConfig {
         return this.m_templateName;
     }
 
+    set templateName(paramV) {
+        this.m_templateName = paramV;
+    }
+
     get destName() {
         return this.m_destDir;
+    }
+
+    set destName(paramV) {
+        this.m_destDir = paramV;
     }
 
     get projectConfigName() {
@@ -246,13 +263,18 @@ async function main() {
 
     const program = new Command();
     program.version('0.0.1', '-v, --version', '显示当前版本号')
-    .argument('<project_name>', '指创建一个指定project目录下指定工程配置的项目名称')
-    .action(async (project_name) => {
-        return await createProject(project_name);
-    }).exitOverride((err)=>{
-        if(err) {
-            ret.setError(-9, String(err));
-        }
+        .option("-n, --name <name>", "项目名称")
+        .option("-a, --author <author>", "作者")
+        .option("-d, --dest <destDir>", "目标目录")
+        .option("-t, --template <templateName>", "指定使用的模板")
+        .argument('<project_name>', '指创建一个指定project目录下指定工程配置的项目名称')
+        .action(async (project_name) => {
+
+            return await createProject(project_name, program.opts());
+        }).exitOverride((err)=>{
+            if(err) {
+                ret.setError(-9, String(err));
+            }
     });
 
     await program.parseAsync(process.argv);
@@ -274,12 +296,45 @@ async function main() {
 
 }
 
-async function createProject(paramProjectName) {
+/**
+ * 创建项目
+ * @param {string} paramProjectName 项目配置的文件名
+ * @param {any} paramOptions 选项
+ * @returns {Promise<number>}
+ */
+async function createProject(paramProjectName, paramOptions) {
+    log.info('option:', JSON.stringify(paramOptions, null, 2));
+
+    if (!utils.isObject(paramOptions)) {
+        paramOptions = {};
+    }
 
     let projectConfig = new XProjectConfig(paramProjectName);
     if (ret.isNotOK) {
         return ret.err;
     }
+
+    if (paramOptions.dest !== undefined) {
+        if (typeof paramOptions.dest === 'string') {
+            projectConfig.destName = paramOptions.dest;
+            projectConfig.cfg.config.dest = paramOptions.dest;
+        }
+        delete paramOptions.dest;
+    }
+
+    if (paramOptions.template !== undefined) {
+        if (typeof paramOptions.template === 'string') {
+            projectConfig.templateName = paramOptions.template;
+            projectConfig.cfg.config.template = paramOptions.template;
+        }
+        delete paramOptions.template;
+    }
+
+    log.info('before', JSON.stringify(projectConfig, null, 2));
+    utils.dataAssign(projectConfig.cfg.info, paramOptions);
+    log.info('after', JSON.stringify(projectConfig, null, 2));
+
+    return -1;
 
     let tempCfg = new XTemplateConfig(projectConfig.templateName);
 
