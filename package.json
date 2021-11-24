@@ -1,0 +1,18 @@
+{
+  "name": "project_template",
+  "version": "1.0.0",
+  "description": "一个基本模板生成项目的工具",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "zhsoft",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^16.11.9",
+    "art-template": "^4.13.2",
+    "commander": "^8.3.0",
+    "xmcommon": "^0.9.11"
+  }
+}
