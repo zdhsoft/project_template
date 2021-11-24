@@ -330,11 +330,9 @@ async function createProject(paramProjectName, paramOptions) {
         delete paramOptions.template;
     }
 
-    log.info('before', JSON.stringify(projectConfig, null, 2));
     utils.dataAssign(projectConfig.cfg.info, paramOptions);
-    log.info('after', JSON.stringify(projectConfig, null, 2));
 
-    return -1;
+    // return -1;
 
     let tempCfg = new XTemplateConfig(projectConfig.templateName);
 

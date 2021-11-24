@@ -1,0 +1,33 @@
+{
+    "dirList": [
+        "src",
+        "test",
+        "config",
+        ".vscode",
+        "src/common"
+    ],
+    "fileList": [
+        ".vscode/launch.json",
+        ".vscode/tasks.json",
+        "package.json",
+        "nest-cli.json",
+        ".prettierrc",
+        ".eslintrc.js",
+        "tsconfig.build.json",
+        "tsconfig.json",
+        "readme.md",
+        "config/log4js.js",
+        "src/app.controller.spec.ts",
+        "src/app.controller.ts",
+        "src/app.module.ts",
+        "src/app.service.ts",
+        "src/main.ts",
+        "src/common/log4js.ts",
+        "src/common/nest.logger.ts",
+        "test/app.e2e-spec.ts",
+        "test/jest-e2e.json"
+    ],
+    "fileListByCopy": [
+        ".gitignore"
+    ]
+}
