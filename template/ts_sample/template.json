@@ -1,8 +1,6 @@
 {
     "dirList": [
-        "dist",
         "src",
-        "config",
         ".vscode"
     ],
     "fileList": [
